@@ -6,8 +6,6 @@ import { assertError } from '../utils/assert.utils.js';
 import { deleteCartUpdateExtension } from './actions.js';
 
 async function preUndeploy() {
-  const apiRoot = createApiRoot();
-  await deleteCartUpdateExtension(apiRoot);
 }
 
 async function run() {
