@@ -13,7 +13,7 @@ export async function createCartUpdateExtension(apiRoot, applicationUrl) {
     })
     .execute();
 
-  if (extensions.length > 0) {
+  if (extensions?.length > 0) {
     const extension = extensions[0];
 
     await apiRoot
@@ -59,7 +59,7 @@ export async function deleteCartUpdateExtension(apiRoot) {
     })
     .execute();
 
-  if (extensions.length > 0) {
+  if (extensions?.length > 0) {
     const extension = extensions[0];
 
     await apiRoot
@@ -86,7 +86,7 @@ export async function createCustomCartDiscountType(apiRoot) {
     })
     .execute();
 
-  if (types.length > 0) {
+  if (types?.length > 0) {
     const type = types[0];
 
     await apiRoot

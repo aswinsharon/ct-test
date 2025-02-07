@@ -17,12 +17,12 @@ export const post = async (request, response) => {
 
   // Identify the type of resource in order to redirect
   // to the correct controller
-  switch (resource.typeId) {
+  switch (resource?.typeId) {
     case 'cart':
       try {
         const data = await cartController(action, resource);
 
-        if (data && data.statusCode === 200) {
+        if (data && data?.statusCode === 200) {
           apiSuccess(200, data.actions, response);
           return;
         }

@@ -6,14 +6,14 @@ import validator from 'validator';
 
 const required =
   (fn) =>
-  (value, ...args) =>
-    !(value === undefined || value === null) && fn(...[String(value), ...args]);
+    (value, ...args) =>
+      !(value === undefined || value === null) && fn(...[String(value), ...args]);
 
 export const standardString = (path, message, overrideConfig = {}) => [
   path,
   [
     [
-      required(validator.isLength),
+      required(validator?.isLength),
       message,
       [{ min: 2, max: 20, ...overrideConfig }],
     ],
@@ -91,34 +91,34 @@ export const getValidateMessages = (validatorConfigs, item) =>
 
 export const optional =
   (fn) =>
-  (...args) => {
-    const [path, validators] = fn(...args);
-    return [
-      path,
-      validators.map(([fn, message, validatorArgs]) => [
-        (value, ...args) =>
-          value === undefined ? true : fn(...[value, ...args]),
-        message,
-        validatorArgs,
-      ]),
-    ];
-  };
+    (...args) => {
+      const [path, validators] = fn(...args);
+      return [
+        path,
+        validators.map(([fn, message, validatorArgs]) => [
+          (value, ...args) =>
+            value === undefined ? true : fn(...[value, ...args]),
+          message,
+          validatorArgs,
+        ]),
+      ];
+    };
 
 export const array =
   (fn) =>
-  (...args) => {
-    const [path, validators] = fn(...args);
-    return [
-      path,
-      validators.map(([fn, message, validatorArgs]) => [
-        (value, ...args) =>
-          Array.isArray(value) &&
-          value.every((value) => fn(...[value, ...args])),
-        message,
-        validatorArgs,
-      ]),
-    ];
-  };
+    (...args) => {
+      const [path, validators] = fn(...args);
+      return [
+        path,
+        validators.map(([fn, message, validatorArgs]) => [
+          (value, ...args) =>
+            Array.isArray(value) &&
+            value.every((value) => fn(...[value, ...args])),
+          message,
+          validatorArgs,
+        ]),
+      ];
+    };
 
 export const region = (path, message) => [
   path,
