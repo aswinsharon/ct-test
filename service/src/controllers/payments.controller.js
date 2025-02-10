@@ -11,7 +11,7 @@ export const paymentController = async (_resource) => {
         // Create the UpdateActions Object to return it to the client
         const updateAction = {
             action: 'setCustomField',
-            key: 'customFieldSet',
+            name: 'customFieldSet',
             value: 'customValue from the connectApp'
         };
 
