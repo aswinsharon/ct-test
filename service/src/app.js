@@ -17,8 +17,8 @@ const app = express();
 app.disable('x-powered-by');
 
 // Define configurations
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Define routes
 app.use('/service', ServiceRoutes);

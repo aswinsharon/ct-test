@@ -1,13 +1,15 @@
 import CustomError from '../errors/custom.error.js';
 import { cartController } from './cart.controller.js';
 import { apiSuccess } from '../api/success.api.js';
-
+import { paymentController } from './payments.controller.js';
+import { logger } from '../utils/logger.utils.js';
 /**
  * Exposed service endpoint.
  * - Receives a POST request, parses the action and the controller
  * and returns it to the correct controller. We should be use 3. `Cart`, `Order` and `Payments`
  */
 export const post = async (request, response) => {
+
   // Deserialize the action and resource from the body
   const { action, resource } = request.body;
 
@@ -20,6 +22,7 @@ export const post = async (request, response) => {
   switch (resource?.typeId) {
     case 'cart':
       try {
+        logger.info('Cart update extension executed');
         const data = await cartController(action, resource);
 
         if (data && data?.statusCode === 200) {
@@ -38,9 +41,16 @@ export const post = async (request, response) => {
       }
 
       break;
-    case 'payment':
+    case 'payment': {
+      logger.info('payment create extension executed');
+      const data = await paymentController(action, resource);
+      logger.info(JSON.stringify(data))
+      if (data && data?.statusCode === 200) {
+        apiSuccess(200, data.actions, response);
+        return;
+      }
       break;
-
+    }
     case 'order':
       break;
 
